@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Roman Urdu Cyber Abuse Detection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <style>
+
+    /* Layout */
+:root{
+   
+  --shadow: 0 6px 18px rgba(15,23,42,0.06);
+  --radius: 12px;
+  --maxw: 680px;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color:#0f172a;
+  padding:40px 16px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  min-height:100vh;
+
+}
+
+.page{ width:100%; 
+    max-width:var(--maxw); 
+    margin:0 auto; text-align:center;}
+
+/* Card */
+.card {
+    background-color: #efc2be6b; 
+    border: 1px solid #d6336c; 
+    border-radius: 30px; 
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+    padding: 28px;
+    text-align: left;
+}
+
+h1{ 
+    color: #b9105f;
+    margin:0 20px 20px 0; 
+    font-size:34px; 
+    line-height:1.05;
+   
+    text-align: center;
+ }
+
+.muted{ color:#b9105f; font-weight:600; font-size:20px; }
+
+/* Form */
+.form{ 
+    margin-top:40px;
+
+ }
+
+.form label{ 
+    display:block;
+     font-size:15px;
+      color: #000000; 
+      margin-bottom:6px; 
+      font-weight: 500;
+
+    }
+
+.form input[type="text"]{
+  width:100%;
+  padding:12px 14px;
+  border-radius:8px;
+  border:1px solid #0b477c;
+  font-size:15px;
+  outline:none;
+  transition:box-shadow .12s, border-color .12s;
+}
+.form input:focus{ 
+    box-shadow:0 6px 18px rgba(196, 69, 255, 0.08); 
+    border-color:var(--accent); 
+}
+
+.controls{ 
+    margin-top:12px;
+display:flex; gap:8px; 
+
+}
+.btn{
+     padding:8px 14px;
+      border-radius:8px;
+     border:0;
+     
+      cursor:pointer;
+       font-weight:600;
+    }
+    
+.btn-primary{
+     background:#b9105f;
+      color: #ffffff;
+     }
+
+.btn-light{
+     background:#f8fafc;
+     color:#0f172a; border:1px solid #e6edf3;
+     }
+
+/* Results */
+.results {
+    margin-top: 20px;
+    padding-top: 14px;
+    border-top: 1px dashed #cf1c76;
+}
+
+/* Input preview */
+.input-preview {
+    color: #751140;
+    margin-bottom: 12px;
+}
+
+/* Model boxes container */
+.model-container {
+    display: flex;
+    justify-content: flex-end; /* right to left alignment */
+    gap: 12px; /* space between boxes */
+    margin-top: 10px;
+}
+
+
+
+
+/* Container for the 3 model boxes */
+.model-container {
+    display: flex;
+    justify-content: flex-end; /* right to left alignment */
+    gap: 15px; /* space between boxes */
+    margin-top: 25px;
+    height: 130px;
+}
+
+/* Individual boxes */
+.model-box {
+    flex: 1; 
+    padding: 16px;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    gap: 16px; 
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    min-height: 90px;
+    font-weight: 700;
+    background-color: #f8f8f8;
+    text-align: center;
+}
+
+/* Model name styling */
+.model-box span.model-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Prediction styling */
+.model-box.CA span.model-pred {
+    color: #d82121;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.model-box.NCA span.model-pred {
+    color: #10b981;
+    font-size: 18px;
+    font-weight: 700;
+}
+.names{
+
+       color: #b9105f;
+    padding: 15px 0 0 10px;
+    font-size: 12px;
+}
+
+
+.back-link{
+     display:inline-block;
+     margin-top:12px; 
+     color: #131212;
+     text-decoration:none;
+     font-weight: 500;
+     }
+.back-link:hover{
+
+ color: #f1336c;
+
+}
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="card">
+      <h1>Roman Urdu<br><span class="muted">Cyber Abuse Detection</span></h1>
+
+      <form action="/" method="post" class="form">
+        <label for="comment">Enter comment</label>
+        <input id="comment" name="comment" type="text" placeholder="Enter your Comment" required>
+
+        <div class="controls">
+          <button type="submit" class="btn btn-primary">Predict</button>
+          <button type="reset" class="btn btn-light">Clear</button>
+        </div>
+      </form>
+
+      {% if prediction %}
+      <div class="results">
+        <h2>Results</h2>
+        <p class="input-preview">🔎 <strong>Input:</strong> {{ comment }}</p>
+
+        <div class="model-container">
+    <div class="model-box {{ pred1 }}" id="model1">
+        <span class="model-name">LogReg</span>
+        <span class="model-pred {{ pred1 }}">{{ pred1 }}</span>
+    </div>
+
+    <div class="model-box {{ pred2 }}">
+        <span class="model-name">RandForest</span>
+        <span class="model-pred {{ pred2 }}">{{ pred2 }}</span>
+    </div>
+
+    <div class="model-box {{ pred3 }}">
+        <span class="model-name">SVM</span>
+        <span class="model-pred {{ pred3 }}">{{ pred3 }}</span>
+    </div>
+</div>
+
+<div class="names">
+    <h2> CA = Cyber Abuse</h2>
+    <h2> NCA = Non-Cyber Abuse</h2>
+</div>
+
+        <a class="back-link" href="/">Try another comment</a>
+      </div>
+      {% endif %}
+    </div>
+
+
+  </div>
+
+</body>
+</html>
