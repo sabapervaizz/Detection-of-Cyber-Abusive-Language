@@ -1,11 +1,8 @@
-flask
+streamlit
 scikit-learn
 pandas
 numpy
-gunicorn
-streamlit
-nltk
-joblib
-re
 matplotlib
 seaborn
+nltk
+joblib
