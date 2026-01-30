@@ -5,3 +5,7 @@ numpy
 gunicorn
 streamlit
 nltk
+joblib
+re
+matplotlib
+seaborn
