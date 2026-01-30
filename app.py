@@ -4,6 +4,16 @@ import re
 import nltk
 from nltk.corpus import stopwords
 
+import nltk
+
+# Only download if not already
+try:
+    nltk.data.find("tokenizers/punkt")
+except LookupError:
+    nltk.download("punkt")
+
+
+
 # ===== DOWNLOAD STOPWORDS 
 try:
     stop_words = set(stopwords.words("english"))
@@ -75,3 +85,4 @@ def home():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
